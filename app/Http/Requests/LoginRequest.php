@@ -21,7 +21,7 @@ class LoginRequest extends FormRequest {
         return [
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
-            'remember_me' => ['sometimes', 'boolean']
+            'remember_me' => ['sometimes']
         ];
     }
 
@@ -39,9 +39,7 @@ class LoginRequest extends FormRequest {
 
             'password.required' => 'Password is required',
             'password.string' => 'Password must be a string',
-            'password.min' => 'Password must be at least 8 characters',
-
-            'remember_me.boolean' => 'Remember Me field must be true or false'
+            'password.min' => 'Password must be at least 8 characters'
         ];
     }
 }

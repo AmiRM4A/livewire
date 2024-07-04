@@ -14,3 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 require_once 'auth.php';
+Route::get('/', function () {
+    return collect(Route::getRoutes())->map(function ($route) {
+        return [
+            'uri' => $route->uri(),
+            'name' => $route->getName(),
+            'action' => $route->getActionName(),
+            'methods' => $route->methods(),
+        ];
+    });
+})->middleware('auth');

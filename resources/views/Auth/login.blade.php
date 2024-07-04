@@ -20,7 +20,7 @@
 <div class="container mt-5">
     <div class="form-container">
         <h2 class="text-center">Login Account</h2>
-        <form method="POSt" action="{{ route('login.store') }}">
+        <form method="POSt" action="{{ route('login') }}">
             @csrf
             <div class="form-group">
                 <label for="email">Email address</label>
