@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 require_once 'auth.php';
-Route::get('/', function () {
-    return collect(Route::getRoutes())->map(function ($route) {
-        return [
-            'uri' => $route->uri(),
-            'name' => $route->getName(),
-            'action' => $route->getActionName(),
-            'methods' => $route->methods(),
-        ];
-    });
-})->middleware('auth');
+Route::middleware('auth')->group(function (){
+    Route::any('/', [TopicController::class, 'index']);
+    Route::resource('topic', TopicController::class);
+});
