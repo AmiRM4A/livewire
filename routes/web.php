@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TopicController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 require_once 'auth.php';
-Route::get('/', function () {
-    return collect(Route::getRoutes())->map(function ($route) {
-        return [
-            'uri' => $route->uri(),
-            'name' => $route->getName(),
-            'action' => $route->getActionName(),
-            'methods' => $route->methods(),
-        ];
-    });
-})->middleware('auth');
+Route::middleware('auth')->group(function (){
+    Route::any('/', [TopicController::class, 'index']);
+    Route::resource('topic', TopicController::class);
+    Route::get('{commentable_type}/{commentable_id}/comment', [CommentController::class, 'store'])->name('comment.store');
+});
