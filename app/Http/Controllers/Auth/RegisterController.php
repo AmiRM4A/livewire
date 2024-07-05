@@ -36,7 +36,9 @@ class RegisterController extends Controller {
 
             return redirect(route('login.create'))->with('success', 'Registration successful.');
         } catch (Throwable $e){
-            return back()->with('error', config('app.debug') ? $e->getMessage() : 'Registration failed!');
+            return back()
+                ->withInput()
+                ->withErrors(['error' => config('app.debug') ? $e->getMessage() : 'Registration failed!']);
         }
     }
 }

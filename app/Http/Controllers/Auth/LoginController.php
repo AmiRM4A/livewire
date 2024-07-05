@@ -29,7 +29,9 @@ class LoginController extends Controller {
             'email' => $request->email,
             'password' => $request->password
         ], (bool) $request->remember_me)){
-            return back()->with('error', 'Login failed, Invalid email or password!');
+            return back()
+                ->withInput()
+                ->withErrors(['error' => 'Login failed, Invalid email or password!']);
         }
 
         return redirect(route('home'))->with('success', 'Login successful.');
