@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Commentable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
 {
-    use HasFactory;
+    use HasFactory, Commentable;
 
     protected $fillable = [
         'title',

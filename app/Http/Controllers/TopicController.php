@@ -38,7 +38,9 @@ class TopicController extends Controller {
 
             return redirect(route('topic.index'))->with('success', 'Topic created successfully.');
         } catch (Throwable $e) {
-            return redirect()->back()->withInput()->withErrors(['error' => config('app.debug') ? $e->getMessage() : 'Unable to create topic!']);
+            return back()
+                ->withInput()
+                ->withErrors(['error' => config('app.debug') ? $e->getMessage() : 'Unable to create topic!']);
         }
     }
 
@@ -71,7 +73,9 @@ class TopicController extends Controller {
             $topic->delete();
             return redirect(route('topic.index'))->with('success', 'Topic deleted successfully.');
         } catch (Throwable $e) {
-            return redirect()->back()->withInput()->withErrors(['error' =>  config('app.debug') ? $e->getMessage() : 'Unable to delete the topic!']);
+            return back()
+                ->withInput()
+                ->withErrors(['error' =>  config('app.debug') ? $e->getMessage() : 'Unable to delete the topic!']);
         }
     }
 }
