@@ -24,22 +24,7 @@
     <!-- Comments -->
     <div class="container">
 
-        <h3 class="mt-5">Comments</h3>
-        <div class="list-group mb-4" style="max-height: 300px; overflow-y: auto;">
-            @foreach ($topic->comments as $comment)
-                <!-- Comments are shown here -->
-                <div class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="mb-1">{{ $comment->content }}</p>
-                            <small class="text-muted">Commented by: {{ $comment->user->name }} - at: {{ $comment->created_at }}</small>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        <h4>Add a Comment</h4>
+        
         <livewire:add-comment :commentable_type="get_class($topic)" :commentable_id="$topic->id" />
     </div>
     @livewireScripts

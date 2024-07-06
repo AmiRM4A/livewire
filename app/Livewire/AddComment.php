@@ -4,26 +4,37 @@ namespace App\Livewire;
 
 use Throwable;
 use Livewire\Component;
+use Livewire\Attributes\Validate;
 
-class AddComment extends Component {
+
+class AddComment extends Component
+{
+    #[Validate('required')]
     public $content;
+
     public $commentable_type;
+
     public $commentable_id;
 
-    public function add() {
-        try {
-            $commentable = $this->commentable_type::find($this->commentable_id);
-            $commentable->commentedBy(auth()->user(), $this->content);
+    public $commentable;
 
-            $this->content = '';
+    public function mount($commentable_type, $commentable_id)
+    {
+        $this->commentable = $this->commentable_type::find($this->commentable_id);
+    }
+
+    public function add()
+    {
+        $this->validate();
+        try {
+            $this->commentable->commentedBy(auth()->user(), $this->content);
         } catch (Throwable $e) {
-            return back()
-                ->withInput()
-                ->withErrors(['error' => config('app.debug') ? $e->getMessage() : 'Unable to create comment!']);
+            return $this->render();
         }
     }
 
-    public function render() {
+    public function render()
+    {
         return view('livewire.add-comment');
     }
 }
