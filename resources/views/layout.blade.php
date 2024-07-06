@@ -14,6 +14,7 @@
             border-radius: 10px;
             background-color: #f9f9f9;
         }
+        @yield('styles')
     </style>
 </head>
 <body>
