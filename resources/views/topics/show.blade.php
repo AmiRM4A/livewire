@@ -4,6 +4,10 @@
     Show topic
 @endsection
 
+@section('styles')
+    @livewireStyles
+@endsection
+
 @section('content')
     <div class="container mt-5">
         <div class="card mb-4">
@@ -19,32 +23,9 @@
 
     <!-- Comments -->
     <div class="container">
-        <h3 class="mt-5">Comments</h3>
 
-        <div class="list-group mb-4" style="max-height: 300px; overflow-y: auto;">
-            @foreach ($topic->comments as $comment)
-                <!-- Comments are shown here -->
-                <div class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="mb-1">{{ $comment->content }}</p>
-                            <small class="text-muted">Commented by: {{ $comment->user->name }} - at: {{ $comment->created_at }}</small>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        <h4>Add a Comment</h4>
-        <form action="{{ route('comment.store', ['commentable_type' => get_class($topic), 'commentable_id' => $topic->id]) }}" method="GET">
-            @csrf
-            <div class="form-group">
-                <label class="w-100">
-                    <textarea name="content" class="form-control" rows="3" placeholder="Write your comment here..." required></textarea>
-                </label>
-            </div>
-            <x-show-error></x-show-error>
-            <button type="submit" class="btn btn-primary">Submit Comment</button>
-        </form>
+        
+        <livewire:add-comment :commentable_type="get_class($topic)" :commentable_id="$topic->id" />
     </div>
+    @livewireScripts
 @endsection
